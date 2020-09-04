@@ -1,22 +1,49 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-@Component({
+@Component({ 
+   selector: 'app-task1', 
   templateUrl: './task1.component.html',
+  styleUrls:['./task1.component.scss'] 
 })
 export class Task1Component implements OnInit {
 
-  content: string;
+  content: string; 
+  inputVal: string[] = []; 
+  passedList:string[] = []; 
+  obj:any = {}; 
+  
+  
 
   ngOnInit(): void {
     this.content =
       `<div #placeholder_first_name></div>
 
-<div #placeholder_last_name></div>`;
+      <div #placeholder_last_name></div>
+      `;
   }
 
   parseTemplate() {
+    // removing all whitespaces from string using regex
+    const removeWhite = this.content.replace(/\s+/g, '');  
+   // splitting string from # and > elements
+    const splitString = this.content.split(/[#\>]/); 
+    // filtering over resulted array to remove uneseccary chunks  
+    const filteredArray = splitString.filter((part)=>{
+      return part.startsWith('placeholder_'); 
+    
+    }) 
+    // final array with fields for inputs we want to create
+    const finalList = filteredArray.map((part)=> {
+      return part.substring(12); 
+    }) 
+    this.passedList = finalList; 
+
   }
 
-  displayResult() {
+  displayResult(passed) {
+       this.obj = passed; 
+      
   }
+
+  
 }
