@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route, Router} from '@angular/router' 
 
 @Component({ 
-   selector: 'app-task1', 
+   selector: 'app-parent', 
   templateUrl: './task1.component.html',
   styleUrls:['./task1.component.scss'] 
 })
@@ -11,6 +12,9 @@ export class Task1Component implements OnInit {
   inputVal: string[] = []; 
   passedList:string[] = []; 
   obj:any = {}; 
+  constructor(private router: Router) {
+
+  }
   
   
 
@@ -43,6 +47,10 @@ export class Task1Component implements OnInit {
   displayResult(passed) {
        this.obj = passed; 
       
+  }
+
+  getDynamic() {
+    this.router.navigateByUrl('/task2', {state:this.obj})
   }
 
   
